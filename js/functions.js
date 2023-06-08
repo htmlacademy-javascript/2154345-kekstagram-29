@@ -28,12 +28,3 @@ function getNumbersFromString(string) {
   // NaN выведется в случае пустой строки на входе
   return Number(result) || NaN;
 }
-
-console.log(checkStringLength('пельмени', 5));
-console.log(checkStringLength('восемь', 8));
-
-console.log(isPalindrom('Лёша на полке клопа нашёл '));
-console.log(isPalindrom('столешница228'));
-
-console.log(getNumbersFromString('агент 007'));
-console.log(getNumbersFromString(''));
