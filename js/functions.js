@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
-function checkStringLength(string, length) {
-  return string.length <= length;
-}
+const checkStringLength = (string, length) => (string.length <= length);
 
-function isPalindrom(string) {
+const isPalindrom = (string) => {
   const clearedString = string.toLowerCase().replaceAll(' ', '');
 
   return clearedString === clearedString.split('').reverse().join('');
-}
+};
 
-function getNumbersFromString(string) {
+const getNumbersFromString = (string) => {
   string = string.toString();
   let result = '';
 
@@ -22,4 +20,4 @@ function getNumbersFromString(string) {
 
   // NaN выведется в случае пустой строки на входе
   return Number(result) || NaN;
-}
+};
