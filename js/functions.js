@@ -23,5 +23,3 @@ function getNumbersFromString(string) {
   // NaN выведется в случае пустой строки на входе
   return Number(result) || NaN;
 }
-
-console.log(isPalindrom('Лёша на полке клопа нашёл '));
