@@ -1,29 +1,22 @@
-/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 function checkStringLength(string, length) {
-  if (string.length <= length) {
-    return true;
-  }
-
-  return false;
+  return string.length <= length;
 }
 
 function isPalindrom(string) {
-  // Получаем массив букв из переведенной в нижний регистр строки без пробелов
-  const clearedStringArray = string.toLowerCase().replaceAll(' ', '').split('');
+  const clearedString = string.toLowerCase().replaceAll(' ', '');
 
-  return clearedStringArray.join('') === clearedStringArray.reverse().join('');
+  return clearedString === clearedString.split('').reverse().join('');
 }
 
 function getNumbersFromString(string) {
   string = string.toString();
   let result = '';
-  for (let i = 0; i < string.length; i++) {
-    const letter = string[i];
 
-    const isNumber = !Number.isNaN(Number.parseInt(letter, 10));
+  for (const char of string) {
+    const isNumber = !Number.isNaN(Number.parseInt(char, 10));
     if (isNumber) {
-      result += letter;
+      result += char;
     }
   }
 
@@ -31,11 +24,4 @@ function getNumbersFromString(string) {
   return Number(result) || NaN;
 }
 
-console.log(checkStringLength('пельмени', 5));
-console.log(checkStringLength('восемь', 8));
-
 console.log(isPalindrom('Лёша на полке клопа нашёл '));
-console.log(isPalindrom('столешница228'));
-
-console.log(getNumbersFromString('агент 007'));
-console.log(getNumbersFromString(''));
