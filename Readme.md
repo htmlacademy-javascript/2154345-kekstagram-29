@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Роман Шамов](https://up.htmlacademy.ru/javascript/29/user/2154345).
-* Наставник: [Артур Литовко](https://htmlacademy.ru/profile/id6927).
+* Наставник: [Артур Литовко](https://github.com/baileys-li).
 
 ---
 
