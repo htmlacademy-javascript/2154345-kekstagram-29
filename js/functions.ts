@@ -1,6 +1,6 @@
 const isShorterThan = ({length}: string, maxLength: number): boolean => (length <= maxLength);
 
-const isPalindrom = (str: any): boolean => {
+const isPalindrom = (str: string): boolean => {
 	const clearedString = str.toLowerCase().replaceAll(' ', '');
 
 	return clearedString === clearedString.split('').reverse().join('');
