@@ -70,6 +70,5 @@ const createDescription = (): object => ({
 });
 
 const similarPhotoDescriptions = Array.from({length: Default.SIMILAR_PHOTO_DESCRIPTIONS_COUNT}, createDescription);
-const generatedIdsForTest = Array.from({length: 35}, generateRandomIdForTest);
 
 export {createRandomIdFromRangeGenerator};
