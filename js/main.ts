@@ -1,19 +1,19 @@
 interface Comment {
 	id: number,
-	avatar: `img/avatar-${number}.svg`,
+	avatar: string,
 	message: string,
 	name: string
 }
 
 interface Description {
 	id: number,
-	url: `photos/${number}.jpg`,
+	url: string,
 	description: string,
 	likes: number,
 	comments: Comment[],
 }
 
-const MESSAGES: string[] = [
+const MESSAGES = [
 	'Всё отлично!',
 	'В целом всё неплохо. Но не всё.',
 	'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -22,7 +22,7 @@ const MESSAGES: string[] = [
 	'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const NAMES: string[] = [
+const NAMES = [
 	'Серега Серый',
 	'Саня Белый',
 	'Никитос Черный',
@@ -45,20 +45,18 @@ const getRandomInteger = (a: number, b: number) : number => {
 	return Math.floor(result);
 };
 
-const getRandomArrayElement = (elements: Array<any>): any => elements[getRandomInteger(0, elements.length - 1)];
+const getRandomArrayElement = <El>(elements: El[] | readonly El[]): El => elements[getRandomInteger(0, elements.length - 1)];
 
-const createRandomIdFromRangeGenerator = (min: number, max: number): any => {
+const createRandomIdFromRangeGenerator = (min: number, max: number) => {
 	const previousValues: number[] = [];
-
-	if (previousValues.length >= (max - min + 1)) {
-		return null;
-	}
 
 	return function(): number {
 		let currentValue: number = getRandomInteger(min, max);
+
 		while (previousValues.includes(currentValue)) {
 			currentValue = getRandomInteger(min, max);
 		}
+
 		previousValues.push(currentValue);
 		return currentValue;
 	};
@@ -67,6 +65,7 @@ const createRandomIdFromRangeGenerator = (min: number, max: number): any => {
 const generateRandomDescriptionId = createRandomIdFromRangeGenerator(1, 25);
 const generateRandomPhotoId = createRandomIdFromRangeGenerator(1, 25);
 const generateRandomCommentId = createRandomIdFromRangeGenerator(1, 800);
+
 
 const createComment = (): Comment => ({
 	id: generateRandomCommentId(),
@@ -85,4 +84,4 @@ const createDescription = (): Description => ({
 
 const similarPhotoDescriptions = Array.from({length: Default.SIMILAR_PHOTO_DESCRIPTIONS_COUNT}, createDescription);
 
-export {createRandomIdFromRangeGenerator};
+export {createRandomIdFromRangeGenerator, similarPhotoDescriptions};
