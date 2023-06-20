@@ -11,18 +11,15 @@ jobs:
     name: Check
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
     - name: Set up Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
-        node-version: '16'
+        cache: 'pnpm'
 
-    - uses: actions/checkout@master
-      name: Checkout
-
-    - name: Install dependencies
-      run: |
-        npm install
-
-    - name: Run checks
-      run: |
-        npm run lint
+    - name: Install dependencies  📦
+      run: pnpm i --ignore-scripts
+    - name: Linting 📐
+      run: pnpm lint
