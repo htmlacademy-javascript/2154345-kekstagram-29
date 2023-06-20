@@ -3,7 +3,7 @@ const enum Default {
 }
 const isShorterThan = ({length}: string, maxLength: Default.MAX_STRING_LENGTH): boolean => (length <= maxLength);
 
-const isPalindrom = (str: any): boolean => {
+const isPalindrom = (str: string): boolean => {
 	const clearedString = str.toLowerCase().replaceAll(' ', '');
 
 	return clearedString === clearedString.split('').reverse().join('');

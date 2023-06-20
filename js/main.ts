@@ -1,3 +1,18 @@
+interface Comment {
+	id: number,
+	avatar: `img/avatar-${number}.svg`,
+	message: string,
+	name: string
+}
+
+interface Description {
+	id: number,
+	url: `photos/${number}.jpg`,
+	description: string,
+	likes: number,
+	comments: Comment[],
+}
+
 const MESSAGES: string[] = [
 	'Всё отлично!',
 	'В целом всё неплохо. Но не всё.',
@@ -51,24 +66,23 @@ const createRandomIdFromRangeGenerator = (min: number, max: number): any => {
 const generateRandomDescriptionId = createRandomIdFromRangeGenerator(1, 25);
 const generateRandomPhotoId = createRandomIdFromRangeGenerator(1, 25);
 const generateRandomCommentId = createRandomIdFromRangeGenerator(1, 800);
-const generateRandomIdForTest = createRandomIdFromRangeGenerator(1, 35);
 
-const createComment = (): object => ({
+const createComment = (): Comment => ({
 	id: generateRandomCommentId(),
 	avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
 	message: getRandomArrayElement(MESSAGES),
 	name: getRandomArrayElement(NAMES)
 });
 
-const createDescription = (): object => ({
+const createDescription = (): Description => ({
 	id: generateRandomDescriptionId(),
 	url: `photos/${generateRandomPhotoId()}.jpg`,
 	description: 'Скоро тут появится полноценное описание!',
 	likes: getRandomInteger(15, 200),
-	comments: Array.from({length: getRandomInteger(0, 30)}, createComment),
-
+	comments: Array.from({length: getRandomInteger(1, 30)}, createComment),
 });
 
 const similarPhotoDescriptions = Array.from({length: Default.SIMILAR_PHOTO_DESCRIPTIONS_COUNT}, createDescription);
+console.log(similarPhotoDescriptions);
 
 export {createRandomIdFromRangeGenerator};
