@@ -83,6 +83,5 @@ const createDescription = (): Description => ({
 });
 
 const similarPhotoDescriptions = Array.from({length: Default.SIMILAR_PHOTO_DESCRIPTIONS_COUNT}, createDescription);
-console.log(similarPhotoDescriptions);
 
 export {createRandomIdFromRangeGenerator};
