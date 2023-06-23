@@ -1,7 +1,8 @@
 const enum Default {
 	MAX_STRING_LENGTH = 140
 }
-const isShorterThan = ({length}: string, maxLength: Default.MAX_STRING_LENGTH): boolean => (length <= maxLength);
+
+const isShorterThan = ({length}: string, maxLength: number = Default.MAX_STRING_LENGTH): boolean => (length <= maxLength);
 
 const isPalindrome = (str: string): boolean => {
 	const clearedString = str.toLowerCase().replaceAll(' ', '');
