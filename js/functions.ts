@@ -15,26 +15,16 @@ const getNumbersFromString = (input: number | string) => {
 	return parseInt(stringWithOnlyDigits, 10);
 };
 
-const parseTimeToNumbers = (time: string) => {
-	const result: number[] = [];
-
-	time.split(':').forEach((timePiece) => {
-		result.push(Number(timePiece));
-	});
-
-	return result;
-};
+const parseTimeToNumbers = (time: string) => time.split(':').map(Number);
 
 const isArrayLargerThan = (firstArr: number[], secondArr: number[]) => {
 	const differenceOfHours = firstArr[0] - secondArr[0];
 
-	if (differenceOfHours > 0) {
-		return true;
-	} else if (differenceOfHours === 0) {
-		return firstArr[1] >= secondArr[1];
-	} else {
-		return false;
+	if (differenceOfHours) {
+		return differenceOfHours > 0;
 	}
+
+	return firstArr[1] >= secondArr[1];
 };
 
 const isNumberInTimeRange = (bottom = [0, 0], time: number[], top = [24, 0]) => (isArrayLargerThan(time, bottom) && isArrayLargerThan(top, time));
