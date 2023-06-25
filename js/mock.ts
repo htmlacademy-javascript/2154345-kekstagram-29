@@ -82,3 +82,5 @@ const createDescription = (): Description => ({
 const createMocks = () => Array.from({length: Default.SIMILAR_PHOTO_DESCRIPTIONS_COUNT}, createDescription);
 
 export { createMocks };
+export type { Description };
+
