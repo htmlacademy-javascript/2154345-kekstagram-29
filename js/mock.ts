@@ -83,4 +83,3 @@ const createMocks = () => Array.from({length: Default.SIMILAR_PHOTO_DESCRIPTIONS
 
 export { createMocks };
 export type { Description };
-

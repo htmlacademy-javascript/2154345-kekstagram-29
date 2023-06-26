@@ -1,15 +1,20 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Description } from './mock.ts';
 
 const pictureList = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture')?.querySelector('.picture');
-
+const pictureTemplate = document.querySelector<HTMLTemplateElement>('#picture')?.content.querySelector<HTMLAnchorElement>('.picture');
 const picturesFragment = document.createDocumentFragment();
+if (!pictureList || !pictureTemplate) {
+	throw new Error('Critical picture elements not found.');
+}
+
 
 const displayPictures = (dataArray: Description[]) => {
 	dataArray.forEach(({url, description, likes, comments}) => {
-		const pictureElement = pictureTemplate?.cloneNode(true) as HTMLAnchorElement;
-		const pictureTag = pictureElement.querySelector('.picture__img') as HTMLImageElement;
+		const pictureElement = pictureTemplate.cloneNode(true) as HTMLAnchorElement;
+		const pictureTag = pictureElement.querySelector<HTMLImageElement>('.picture__img');
+		if (!pictureTag) {
+			return;
+		}
 
 		pictureTag.src = url;
 		pictureTag.alt = description;
@@ -19,7 +24,7 @@ const displayPictures = (dataArray: Description[]) => {
 		picturesFragment.append(pictureElement);
 	});
 
-	pictureList?.append(picturesFragment);
+	pictureList.append(picturesFragment);
 };
 
 export { displayPictures };

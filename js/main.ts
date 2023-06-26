@@ -1,6 +1,6 @@
 import { createMocks } from './mock.ts';
 import { isShorterThan, isPalindrome, getNumbersFromString } from './functions.ts';
-import { displayPictures } from './display-pictures.js';
+import { displayPictures } from './display-pictures.ts';
 import './photo-edit.ts';
 import './photo-upload.ts';
 import './submit-data.ts';
