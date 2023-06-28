@@ -4,18 +4,19 @@ const pictureList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector<HTMLTemplateElement>('#picture')?.content.querySelector<HTMLAnchorElement>('.picture');
 const picturesFragment = document.createDocumentFragment();
 if (!pictureList || !pictureTemplate) {
-	throw new Error('Critical picture elements not found.');
+	throw new Error('Critical. Picture elements not found.');
 }
 
 
 const displayPictures = (dataArray: Description[]) => {
-	dataArray.forEach(({url, description, likes, comments}) => {
+	dataArray.forEach(({id, url, description, likes, comments}) => {
 		const pictureElement = pictureTemplate.cloneNode(true) as HTMLAnchorElement;
 		const pictureTag = pictureElement.querySelector<HTMLImageElement>('.picture__img');
 		if (!pictureTag) {
 			return;
 		}
 
+		pictureTag.id = id!.toString();
 		pictureTag.src = url;
 		pictureTag.alt = description;
 		pictureElement.querySelector('.picture__likes')!.textContent = likes.toString();
