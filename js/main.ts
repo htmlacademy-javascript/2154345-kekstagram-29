@@ -1,4 +1,4 @@
-import './display-data.js';
+import './render-data.js';
 import { isShorterThan, isPalindrome, getNumbersFromString, isTimeSpanOutOfBounds } from './functions.ts';
 
 isShorterThan('123', 123);
