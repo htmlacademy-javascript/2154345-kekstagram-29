@@ -30,16 +30,14 @@ const renderBigPicture = (pictureData: Photo) => {
 	clearComments();
 	renderComments(pictureData.comments);
 
-	document.addEventListener('keydown', (evt) => onDocumentKeydown(evt));
+	document.addEventListener('keydown', onDocumentKeydown);
 	closeButton.addEventListener('click', closeBigPicture);
 };
-
-document.addEventListener('keydown', onDocumentKeydown);
 
 function closeBigPicture() {
 	bigPicture!.classList.add('hidden');
 	document.body.classList.remove('modal-open');
-	document.removeEventListener('keydown', (evt) => onDocumentKeydown(evt));
+	document.removeEventListener('keydown', onDocumentKeydown);
 	closeButton!.removeEventListener('click', closeBigPicture);
 }
 
