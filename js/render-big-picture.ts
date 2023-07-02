@@ -5,7 +5,16 @@ import { clearComments, renderComments } from './render-comments';
 const bigPicture = document.querySelector<HTMLElement>('.big-picture');
 const closeButton = document.querySelector('.big-picture__cancel');
 if (!bigPicture || !closeButton) {
-	throw new Error('Critical. Big picture elements not found.');
+	throw new Error('Critical. Big picture or close button were not found.');
+}
+
+const bigPictureImage = bigPicture.querySelector<HTMLImageElement>('.big-picture__img img');
+const bigPictureLikes = bigPicture.querySelector<HTMLElement>('.likes-count');
+const bigPictureCommentsCount = bigPicture.querySelector<HTMLElement>('.comments-count');
+const bigPictureCaption = bigPicture.querySelector<HTMLElement>('.social__caption');
+
+if (!bigPictureImage || !bigPictureLikes || !bigPictureCommentsCount || !bigPictureCaption) {
+	throw new Error('Critical big picture elements were not found.');
 }
 
 const onDocumentKeydown = (evt: KeyboardEvent) => {
@@ -22,10 +31,10 @@ const renderBigPicture = (pictureData: Photo) => {
 	bigPicture.classList.remove('hidden');
 	document.body.classList.add('modal-open');
 
-	bigPicture.querySelector<HTMLImageElement>('.big-picture__img img')!.src = pictureData.url;
-	bigPicture.querySelector<HTMLElement>('.likes-count')!.textContent = pictureData.likes.toString();
-	bigPicture.querySelector<HTMLElement>('.comments-count')!.textContent = pictureData.comments.length.toString();
-	bigPicture.querySelector<HTMLElement>('.social__caption')!.textContent = pictureData.description;
+	bigPictureImage.src = pictureData.url;
+	bigPictureLikes.textContent = pictureData.likes.toString();
+	bigPictureCommentsCount.textContent = pictureData.comments.length.toString();
+	bigPictureCaption.textContent = pictureData.description;
 
 	clearComments();
 	renderComments(pictureData.comments);
@@ -37,8 +46,6 @@ const renderBigPicture = (pictureData: Photo) => {
 function closeBigPicture() {
 	bigPicture!.classList.add('hidden');
 	document.body.classList.remove('modal-open');
-	document.removeEventListener('keydown', onDocumentKeydown);
-	closeButton!.removeEventListener('click', closeBigPicture);
 }
 
 export { renderBigPicture };
