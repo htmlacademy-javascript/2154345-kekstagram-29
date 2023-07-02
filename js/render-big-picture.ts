@@ -12,8 +12,9 @@ const bigPictureImage = bigPicture.querySelector<HTMLImageElement>('.big-picture
 const bigPictureLikes = bigPicture.querySelector<HTMLElement>('.likes-count');
 const bigPictureCommentsCount = bigPicture.querySelector<HTMLElement>('.comments-count');
 const bigPictureCaption = bigPicture.querySelector<HTMLElement>('.social__caption');
+const commentLoaderButton = document.querySelector<HTMLButtonElement>('.social__comments-loader');
 
-if (!bigPictureImage || !bigPictureLikes || !bigPictureCommentsCount || !bigPictureCaption) {
+if (!bigPictureImage || !bigPictureLikes || !bigPictureCommentsCount || !bigPictureCaption || !commentLoaderButton) {
 	throw new Error('Critical big picture elements were not found.');
 }
 
@@ -26,7 +27,7 @@ const onDocumentKeydown = (evt: KeyboardEvent) => {
 
 const renderBigPicture = (pictureData: Photo) => {
 	if (!pictureData) {
-		throw new Error('Critical. User data not found.');
+		throw new Error('Critical user data not found.');
 	}
 	bigPicture.classList.remove('hidden');
 	document.body.classList.add('modal-open');
@@ -36,8 +37,11 @@ const renderBigPicture = (pictureData: Photo) => {
 	bigPictureCommentsCount.textContent = pictureData.comments.length.toString();
 	bigPictureCaption.textContent = pictureData.description;
 
+	const comments = renderComments(pictureData.comments);
+
 	clearComments();
-	renderComments(pictureData.comments);
+	comments();
+	commentLoaderButton.addEventListener('click', comments);
 
 	document.addEventListener('keydown', onDocumentKeydown);
 	closeButton.addEventListener('click', closeBigPicture);

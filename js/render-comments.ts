@@ -3,38 +3,43 @@ import { findBEMElement, findTemplate } from './utils';
 
 const commentsCount = document.querySelector<HTMLSpanElement>('.comments-count');
 const commentCounter = document.querySelector<HTMLDivElement>('.social__comment-count');
-const commentLoaderButton = document.querySelector<HTMLButtonElement>('.comments-loader');
+const commentLoaderButton = document.querySelector<HTMLButtonElement>('.social__comments-loader');
 const commentsListFragment = document.createDocumentFragment();
 const commentTemplate = findTemplate<HTMLLIElement>('comment');
 const commentsList = document.querySelector<HTMLUListElement>('.social__comments');
 
-if (!commentCounter || !commentLoaderButton || !commentsList || !commentsCount) {
+if (!commentCounter || !commentLoaderButton || !commentsList || !commentsCount || !commentsList) {
 	throw new Error('Critical elements for Comments were not found');
 }
 
-commentLoaderButton.hidden = true;
-commentCounter.hidden = true;
+let shownCommentsAmount = 0;
 
 const renderComments = (comments: PhotoComment[]) => {
 	commentsCount.textContent = comments.length.toString();
 
-	comments.forEach((comment) => {
-		const commentElement = commentTemplate.cloneNode(true) as typeof commentTemplate;
-		const commentAvatar = findBEMElement<HTMLImageElement>(commentElement, 'picture', 'social');
-		const commentText = findBEMElement<HTMLElement>(commentElement, 'text', 'social');
+	return () => {
+		const currentPartToRender = comments.slice(shownCommentsAmount, shownCommentsAmount + 5);
 
-		commentAvatar.src = comment.avatar;
-		commentAvatar.alt = comment.name;
-		commentText.textContent = comment.message;
+		currentPartToRender.forEach((comment: PhotoComment) => {
+			const commentElement = commentTemplate.cloneNode(true) as typeof commentTemplate;
+			const commentAvatar = findBEMElement<HTMLImageElement>(commentElement, 'picture', 'social');
+			const commentText = findBEMElement<HTMLElement>(commentElement, 'text', 'social');
 
-		commentsListFragment.append(commentElement);
-	});
+			commentAvatar.src = comment.avatar;
+			commentAvatar.alt = comment.name;
+			commentText.textContent = comment.message;
 
-	commentsList.append(commentsListFragment);
+			commentsListFragment.append(commentElement);
+		});
+		shownCommentsAmount += 5;
+
+		commentsList.append(commentsListFragment);
+	};
 };
 
 const clearComments = () => {
 	commentsList.innerHTML = '';
+	shownCommentsAmount = 0;
 };
 
 export { renderComments, clearComments };
