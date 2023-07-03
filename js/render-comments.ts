@@ -35,7 +35,7 @@ const renderComments = (comments: PhotoComment[]) => {
 	commentLoaderButton.classList.remove('hidden');
 
 	return () => {
-		const currentPartToRender = comments.slice(shownCommentsAmount, shownCommentsAmount + 5);
+		const currentPartToRender = comments.slice(shownCommentsAmount, shownCommentsAmount + NUMBER_OF_UPLOADED_COMMENTS);
 
 		currentPartToRender.forEach((comment: PhotoComment) => {
 			const commentElement = commentTemplate.cloneNode(true) as typeof commentTemplate;
