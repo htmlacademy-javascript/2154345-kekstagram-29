@@ -1,21 +1,38 @@
 import { PhotoComment } from './contracts/common';
 import { findBEMElement, findTemplate } from './utils';
 
+
 const commentsCount = document.querySelector<HTMLSpanElement>('.comments-count');
+const commentsCurrentCount = document.querySelector<HTMLSpanElement>('.comments-current-count');
 const commentCounter = document.querySelector<HTMLDivElement>('.social__comment-count');
 const commentLoaderButton = document.querySelector<HTMLButtonElement>('.social__comments-loader');
 const commentsListFragment = document.createDocumentFragment();
 const commentTemplate = findTemplate<HTMLLIElement>('comment');
 const commentsList = document.querySelector<HTMLUListElement>('.social__comments');
 
-if (!commentCounter || !commentLoaderButton || !commentsList || !commentsCount || !commentsList) {
-	throw new Error('Critical elements for Comments were not found');
+const NUMBER_OF_UPLOADED_COMMENTS = 5;
+
+if (!commentCounter || !commentLoaderButton || !commentsList || !commentsCount || !commentsCurrentCount || !commentsList) {
+	throw new Error('Critical elements for comments were not found');
 }
 
 let shownCommentsAmount = 0;
 
+const getShownCommentsAmount = (shownCommentsCount: number, totalCommentsAmount: number): number => {
+	const differenceOfTwoNumbers = totalCommentsAmount - shownCommentsCount;
+	if (differenceOfTwoNumbers > 0) {
+		shownCommentsAmount += Math.min(NUMBER_OF_UPLOADED_COMMENTS, differenceOfTwoNumbers);
+	}
+
+	return shownCommentsAmount;
+};
+
 const renderComments = (comments: PhotoComment[]) => {
-	commentsCount.textContent = comments.length.toString();
+	const totalCommentsAmount = comments.length;
+	commentsCount.textContent = totalCommentsAmount.toString();
+	const currentShownCommentsAmount = getShownCommentsAmount(shownCommentsAmount, totalCommentsAmount);
+	commentsCurrentCount.textContent = currentShownCommentsAmount.toString();
+	commentLoaderButton.classList.remove('hidden');
 
 	return () => {
 		const currentPartToRender = comments.slice(shownCommentsAmount, shownCommentsAmount + 5);
@@ -31,9 +48,15 @@ const renderComments = (comments: PhotoComment[]) => {
 
 			commentsListFragment.append(commentElement);
 		});
-		shownCommentsAmount += 5;
+		shownCommentsAmount = getShownCommentsAmount(shownCommentsAmount, totalCommentsAmount);
+		commentsCurrentCount.textContent = shownCommentsAmount.toString();
+
 
 		commentsList.append(commentsListFragment);
+
+		if (shownCommentsAmount === totalCommentsAmount) {
+			commentLoaderButton.classList.add('hidden');
+		}
 	};
 };
 

@@ -1,5 +1,5 @@
 import { isEscapeKey } from './utils';
-import { Photo } from './contracts/common';
+import { Photo, Comments } from './contracts/common';
 import { clearComments, renderComments } from './render-comments';
 
 const bigPicture = document.querySelector<HTMLElement>('.big-picture');
@@ -25,6 +25,8 @@ const onDocumentKeydown = (evt: KeyboardEvent) => {
 	}
 };
 
+let comments: Comments;
+
 const renderBigPicture = (pictureData: Photo) => {
 	if (!pictureData) {
 		throw new Error('Critical user data not found.');
@@ -37,7 +39,7 @@ const renderBigPicture = (pictureData: Photo) => {
 	bigPictureCommentsCount.textContent = pictureData.comments.length.toString();
 	bigPictureCaption.textContent = pictureData.description;
 
-	const comments = renderComments(pictureData.comments);
+	comments = renderComments(pictureData.comments);
 
 	clearComments();
 	comments();
@@ -50,6 +52,7 @@ const renderBigPicture = (pictureData: Photo) => {
 function closeBigPicture() {
 	bigPicture!.classList.add('hidden');
 	document.body.classList.remove('modal-open');
+	commentLoaderButton?.removeEventListener('click', comments);
 }
 
 export { renderBigPicture };
