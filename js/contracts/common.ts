@@ -13,4 +13,8 @@ interface Photo {
 	comments: PhotoComment[],
 }
 
-export type { Photo, PhotoComment };
+interface Comments {
+  (): void;
+}
+
+export type { Photo, PhotoComment, Comments };
