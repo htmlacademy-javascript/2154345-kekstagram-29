@@ -1,6 +1,7 @@
 import { isEscapeKey } from './utils';
-import { Photo, Comments } from './contracts/common';
+import { Photo } from './contracts/common';
 import { clearComments, renderComments } from './render-comments';
+clearComments();
 
 const bigPicture = document.querySelector<HTMLElement>('.big-picture');
 const closeButton = document.querySelector('.big-picture__cancel');
@@ -18,41 +19,39 @@ if (!bigPictureImage || !bigPictureLikes || !bigPictureCommentsCount || !bigPict
 	throw new Error('Critical big picture elements were not found.');
 }
 
-const onDocumentKeydown = (evt: KeyboardEvent) => {
+const renderBigPicture = ({ url, description, likes, comments }: Photo) => {
+	bigPictureImage.src = url;
+	bigPictureLikes.textContent = likes.toString();
+	bigPictureCommentsCount.textContent = comments.length.toString();
+	bigPictureCaption.textContent = description;
+
+	renderComments(comments);
+};
+
+const toggleModalClasses = (willBeOpened = true) => {
+	bigPicture.classList.toggle('hidden', !willBeOpened);
+	document.body.classList.toggle('modal-open', willBeOpened);
+};
+
+const openModal = (photo: Photo) => {
+	toggleModalClasses(true);
+	renderBigPicture(photo);
+	document.addEventListener('keydown', onDocumentKeydown);
+};
+
+const closeModal = () => {
+	toggleModalClasses(false);
+	clearComments();
+	document.removeEventListener('keydown', onDocumentKeydown);
+};
+
+closeButton.addEventListener('click', closeModal);
+
+function onDocumentKeydown(evt: KeyboardEvent) {
 	if (isEscapeKey(evt)) {
 		evt.preventDefault();
-		closeBigPicture();
+		closeModal();
 	}
-};
-
-let comments: Comments;
-
-const renderBigPicture = (pictureData: Photo) => {
-	if (!pictureData) {
-		throw new Error('Critical user data not found.');
-	}
-	bigPicture.classList.remove('hidden');
-	document.body.classList.add('modal-open');
-
-	bigPictureImage.src = pictureData.url;
-	bigPictureLikes.textContent = pictureData.likes.toString();
-	bigPictureCommentsCount.textContent = pictureData.comments.length.toString();
-	bigPictureCaption.textContent = pictureData.description;
-
-	comments = renderComments(pictureData.comments);
-
-	clearComments();
-	comments();
-	commentLoaderButton.addEventListener('click', comments);
-
-	document.addEventListener('keydown', onDocumentKeydown);
-	closeButton.addEventListener('click', closeBigPicture);
-};
-
-function closeBigPicture() {
-	bigPicture!.classList.add('hidden');
-	document.body.classList.remove('modal-open');
-	commentLoaderButton?.removeEventListener('click', comments);
 }
 
-export { renderBigPicture };
+export { openModal };

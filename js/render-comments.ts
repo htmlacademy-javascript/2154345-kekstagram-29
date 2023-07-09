@@ -1,63 +1,49 @@
 import { PhotoComment } from './contracts/common';
-import { findBEMElement, findTemplate } from './utils';
+import { findBEMElement, findTemplate, renderPack } from './utils';
 
-
-const commentsCount = document.querySelector<HTMLSpanElement>('.comments-count');
-const commentsCurrentCount = document.querySelector<HTMLSpanElement>('.comments-current-count');
-const commentCounter = document.querySelector<HTMLDivElement>('.social__comment-count');
-const commentLoaderButton = document.querySelector<HTMLButtonElement>('.social__comments-loader');
-const commentsListFragment = document.createDocumentFragment();
+const commentsStatus = document.querySelector<HTMLDivElement>('.social__comment-count');
+const commentsLoader = document.querySelector<HTMLButtonElement>('.social__comments-loader');
 const commentTemplate = findTemplate<HTMLLIElement>('comment');
 const commentsList = document.querySelector<HTMLUListElement>('.social__comments');
 
-const NUMBER_OF_UPLOADED_COMMENTS = 5;
+const NUMBER_OF_IMAGE_PER_LOAD = 5;
 
-if (!commentCounter || !commentLoaderButton || !commentsList || !commentsCount || !commentsCurrentCount || !commentsList) {
+if (!commentsLoader || !commentsList || !commentsStatus || !commentsList) {
 	throw new Error('Critical elements for comments were not found');
 }
 
-let shownCommentsAmount = 0;
+const createComment = ({ avatar, name, message }: PhotoComment) => {
+	const comment = commentTemplate.cloneNode(true) as typeof commentTemplate;
+	const commentAvatar = findBEMElement<HTMLImageElement>(comment, 'picture', 'social');
+	const commentText = findBEMElement<HTMLElement>(comment, 'text', 'social');
 
-const getShownCommentsAmount = (shownCommentsCount: number, totalCommentsAmount: number): number => {
-	const differenceOfTwoNumbers = totalCommentsAmount - shownCommentsCount;
-	if (differenceOfTwoNumbers > 0) {
-		shownCommentsAmount += Math.min(NUMBER_OF_UPLOADED_COMMENTS, differenceOfTwoNumbers);
-	}
+	commentAvatar.src = avatar;
+	commentAvatar.alt = name;
+	commentText.textContent = message;
 
-	return shownCommentsAmount;
+	return comment;
 };
 
+let shownCommentsAmount = 0;
+let currentComments: PhotoComment[] = [];
+
+commentsLoader.addEventListener('click', () => {
+	const totalCommentsAmount = currentComments.length;
+	const nextCommentAmount = Math.min(shownCommentsAmount + NUMBER_OF_IMAGE_PER_LOAD, totalCommentsAmount);
+	const nextPack = currentComments.slice(shownCommentsAmount, nextCommentAmount);
+
+	renderPack(nextPack, commentsList, createComment);
+
+	shownCommentsAmount = nextCommentAmount;
+	commentsStatus.textContent = `${shownCommentsAmount} из ${totalCommentsAmount} комментариев`;
+
+	const areAllCommentsShown = shownCommentsAmount >= totalCommentsAmount;
+	commentsLoader.hidden = areAllCommentsShown;
+});
+
 const renderComments = (comments: PhotoComment[]) => {
-	const totalCommentsAmount = comments.length;
-	commentsCount.textContent = totalCommentsAmount.toString();
-	const currentShownCommentsAmount = getShownCommentsAmount(shownCommentsAmount, totalCommentsAmount);
-	commentsCurrentCount.textContent = currentShownCommentsAmount.toString();
-	commentLoaderButton.classList.remove('hidden');
-
-	return () => {
-		const currentPartToRender = comments.slice(shownCommentsAmount, shownCommentsAmount + NUMBER_OF_UPLOADED_COMMENTS);
-
-		currentPartToRender.forEach((comment: PhotoComment) => {
-			const commentElement = commentTemplate.cloneNode(true) as typeof commentTemplate;
-			const commentAvatar = findBEMElement<HTMLImageElement>(commentElement, 'picture', 'social');
-			const commentText = findBEMElement<HTMLElement>(commentElement, 'text', 'social');
-
-			commentAvatar.src = comment.avatar;
-			commentAvatar.alt = comment.name;
-			commentText.textContent = comment.message;
-
-			commentsListFragment.append(commentElement);
-		});
-		shownCommentsAmount = getShownCommentsAmount(shownCommentsAmount, totalCommentsAmount);
-		commentsCurrentCount.textContent = shownCommentsAmount.toString();
-
-
-		commentsList.append(commentsListFragment);
-
-		if (shownCommentsAmount === totalCommentsAmount) {
-			commentLoaderButton.classList.add('hidden');
-		}
-	};
+	currentComments = comments;
+	commentsLoader.click();
 };
 
 const clearComments = () => {

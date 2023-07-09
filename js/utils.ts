@@ -36,4 +36,10 @@ const findBEMElement = <E extends HTMLElement = HTMLElement>(blockNode: Element,
 	return elementNode;
 };
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement};
+const renderPack = <El>(items: El[], container: Element, render: (item: El) => HTMLElement) => {
+	const fragment = document.createDocumentFragment();
+	items.forEach((item) => fragment.append(render(item)));
+	container.append(fragment);
+};
+
+export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack};
