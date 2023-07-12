@@ -23,12 +23,17 @@ const findTemplate = <E extends HTMLElement = HTMLElement>(id: string) => {
 	return template as E;
 };
 
-const findBEMElement = <E extends HTMLElement = HTMLElement>(blockNode: Element, element: string, block?: string) => {
+const findBEMElement = <E extends HTMLElement = HTMLElement>(blockNode: Element, element: string, block?: string, modifier?: string) => {
 	if (!block) {
 		block = blockNode.classList[0];
 	}
+	let elementNode;
+	if (modifier) {
+		elementNode = blockNode.querySelector<E>(`.${block}__${element}--${modifier}`);
+	} else {
+		elementNode = blockNode.querySelector<E>(`.${block}__${element}`);
+	}
 
-	const elementNode = blockNode.querySelector<E>(`.${block}__${element}`);
 	if (elementNode === null) {
 		throw new Error(`Element ${element} not found in block ${block}`);
 	}

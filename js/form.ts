@@ -1,5 +1,6 @@
 import { isEscapeKey } from './utils';
 import { OverlayInput } from './contracts/common';
+import { clearScale } from './scale';
 
 const form = document.querySelector('.img-upload__form')!;
 const uploadInput = form.querySelector<HTMLInputElement>('.img-upload__input');
@@ -43,12 +44,16 @@ const onUploadInputChange = () => {
 	document.addEventListener('keydown', onDocumentKeydown);
 };
 
+// Test
+onUploadInputChange();
+
 uploadInput.addEventListener('change', onUploadInputChange);
 
 const closeModal = () => {
 	toggleModalClasses(false);
 	uploadInput.value = '';
 	pristine.reset();
+	clearScale();
 };
 
 closeButton.addEventListener('click', closeModal);
