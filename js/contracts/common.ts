@@ -13,8 +13,8 @@ interface Photo {
 	comments: PhotoComment[],
 }
 
-interface Comments {
-  (): void;
+interface OverlayInput {
+  addEventListener(type: 'keyup' | 'keydown', listener: (event: KeyboardEvent) => any, options?: boolean | EventListenerOptions): void;
 }
 
-export type { Photo, PhotoComment, Comments };
+export type { Photo, PhotoComment, OverlayInput };

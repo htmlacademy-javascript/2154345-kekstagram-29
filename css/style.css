@@ -290,6 +290,15 @@ main {
 	text-align: center;
 }
 
+.img-upload__field-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.img-upload__field-wrapper:first-child {
+	margin-bottom: 20px;
+}
+
 .img-upload__form {
 	position: relative;
 	min-height: 569px;
@@ -682,11 +691,20 @@ main {
 	border: none;
 }
 
+.text__error {
+	width: 450px;
+
+	padding: 5px 2px 0;
+	margin: 0 auto;
+	text-align: start;
+
+	color: #ff0000;
+}
+
 .text__hashtags {
 	width: 450px;
 
 	margin: 0 auto;
-	margin-bottom: 20px;
 	padding: 5px 10px;
 
 	font-family: "Open Sans", "Arial", sans-serif;
