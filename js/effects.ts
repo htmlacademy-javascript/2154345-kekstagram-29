@@ -1,14 +1,12 @@
-
-
-const effects = document.querySelector('.effects');
-const effectsInputs = document.querySelectorAll('.effects__radio');
+// const effects = document.querySelector('.effects');
+// const effectsInputs = document.querySelectorAll('.effects__radio');
 const slider = document.querySelector('.effect-level__slider');
 
-const onEffectClick = (evt) => {
-	console.log(evt.target.value);
-};
+// const onEffectClick = (evt) => {
+// 	console.log(evt.target.value);
+// };
 
-effectsInputs.forEach((input) => input.addEventListener('click', onEffectClick));
+// effectsInputs.forEach((input) => input.addEventListener('click', onEffectClick));
 
 noUiSlider.create(
 	slider,
