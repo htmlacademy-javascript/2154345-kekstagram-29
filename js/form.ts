@@ -8,6 +8,15 @@ const closeButton = form.querySelector('.img-upload__cancel');
 const hashtagsInput = form.querySelector('.text__hashtags');
 const overlayInputs: OverlayInput[] = form.querySelectorAll('.text__field');
 
+const REGEX = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
+const	MAX_HASHTAG_AMOUNT = 5;
+
+const enum ErrorMessages {
+	INVALID_SYMBOLS = 'Введён невалидный хэш-тег.',
+	INVALID_REPEATNESS = 'Хэш-теги повторяются.',
+	INVALID_AMOUNT = `Максимум ${MAX_HASHTAG_AMOUNT} хэш-тегов.`
+}
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const pristine = new Pristine(form, {
@@ -61,13 +70,7 @@ const normalizeTags = (hashtags: string) => hashtags
 	.split(' ')
 	.filter((tag) => Boolean(tag.length));
 
-const isHashtagValid = (hashtagString: string) => {
-	const firststep = hashtagString[0] === '#';
-	const secondstep = /^[A-Za-zА-Яа-я0-9]*$/.test(hashtagString.slice(1, -1));
-	const thirdstep = hashtagString.length <= 20;
-
-	return firststep && secondstep && thirdstep;
-};
+const isHashtagValid = (hashtagString: string) => REGEX.test(hashtagString);
 
 const areHashtagsValid = (hashtagString: string) => {
 	const hashtags = normalizeTags(hashtagString);
@@ -85,28 +88,31 @@ const areHashtagsUnique = (hashtagString: string) => {
 const isHashtagsAmountValid = (hashtagString: string) => {
 	const hashtags = normalizeTags(hashtagString);
 
-	return hashtags.length <= 5;
+	return hashtags.length <= MAX_HASHTAG_AMOUNT;
 };
 
 pristine.addValidator(
 	hashtagsInput,
 	areHashtagsValid,
-	'Введён невалидный хэш-тег',
-	1
+	ErrorMessages.INVALID_SYMBOLS,
+	1,
+	true
 );
 
 pristine.addValidator(
 	hashtagsInput,
 	areHashtagsUnique,
-	'Хэш-теги повторяются.',
-	2
+	ErrorMessages.INVALID_REPEATNESS,
+	2,
+	true
 );
 
 pristine.addValidator(
 	hashtagsInput,
 	isHashtagsAmountValid,
-	'Превышено количество хэш-тегов',
-	3
+	ErrorMessages.INVALID_AMOUNT,
+	3,
+	true
 );
 
 form.addEventListener('submit', (evt) => {
