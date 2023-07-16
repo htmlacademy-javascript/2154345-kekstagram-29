@@ -1,14 +1,10 @@
 import { isEscapeKey, toggleModalClasses } from '../utils';
 import { resetScale } from './scale';
 import { validate, resetValidation } from './validation';
-import { slider, resetEffects } from './effects';
+import { resetEffects } from './effects';
 import { form, wrapper } from './elements';
 
-const closeForm = () => {
-	form!.reset();
-	resetScale();
-	resetEffects();
-};
+const closeForm = () => form!.reset();
 
 form!.filename.addEventListener('change', () => {
 	toggleModalClasses(wrapper!);
@@ -19,6 +15,8 @@ form!.addEventListener('reset', () => {
 	toggleModalClasses(wrapper!, false);
 	document.removeEventListener('keydown', onDocumentKeydown);
 	resetValidation();
+	resetScale();
+	resetEffects();
 });
 
 form!.addEventListener('submit', (evt) => {
