@@ -8,6 +8,9 @@ dependencies:
   nouislider:
     specifier: ^15.7.1
     version: 15.7.1
+  pristinejs:
+    specifier: ^1.1.0
+    version: 1.1.0
 
 devDependencies:
   '@typescript-eslint/eslint-plugin':
