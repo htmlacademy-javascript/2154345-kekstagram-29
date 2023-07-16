@@ -13,8 +13,4 @@ interface Photo {
 	comments: PhotoComment[],
 }
 
-interface OverlayInput {
-  addEventListener(type: 'keyup' | 'keydown', listener: (event: KeyboardEvent) => any, options?: boolean | EventListenerOptions): void;
-}
-
-export type { Photo, PhotoComment, OverlayInput };
+export type { Photo, PhotoComment };

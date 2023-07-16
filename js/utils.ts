@@ -47,4 +47,9 @@ const renderPack = <El>(items: El[], container: Element, render: (item: El) => H
 	container.append(fragment);
 };
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack};
+const toggleModalClasses = (wrapper: HTMLElement, willBeOpened = true) => {
+	wrapper.classList.toggle('hidden', !willBeOpened);
+	document.body.classList.toggle('modal-open', willBeOpened);
+};
+
+export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack, toggleModalClasses};

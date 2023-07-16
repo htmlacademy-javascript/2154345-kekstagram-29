@@ -1,7 +1,7 @@
-import { findBEMElement } from './utils';
+import { findBEMElement } from '../utils';
+import { image } from './elements';
 
 const scale = document.querySelector('.scale')!;
-const image = document.querySelector<HTMLImageElement>('.img-upload__preview img')!;
 const controlSmaller = findBEMElement(scale, 'control', 'scale', 'smaller');
 const controlBigger = findBEMElement(scale, 'control', 'scale', 'bigger');
 const scaleField = findBEMElement<HTMLInputElement>(scale, 'control', 'scale', 'value');
@@ -15,8 +15,12 @@ const getScaleValue = (value: number, isDecrease = true) => {
 };
 
 const setScale = (value: number) => {
-	image.style.transform = `scale(${value})`;
+	image!.style.transform = `scale(${value})`;
 	scaleField.value = `${value * 100}%`;
+};
+
+const resetScale = () => {
+	image!.style.removeProperty('transform');
 };
 
 const onScaleChange = (isDecrease = true) => {
@@ -33,8 +37,4 @@ controlBigger.addEventListener('click', () => {
 	onScaleChange(false);
 });
 
-const clearScale = () => {
-	setScale(1);
-};
-
-export { clearScale };
+export { resetScale };
