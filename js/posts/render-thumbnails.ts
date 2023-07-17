@@ -1,7 +1,7 @@
-import { createMocks } from './mocks/mock.ts';
+import { createMocks } from '../mocks/mock.ts';
 import { openModal } from './render-big-picture.ts';
-import { Photo } from './contracts/common.ts';
-import { findBEMElement, findTemplate, renderPack } from './utils.ts';
+import { Photo } from '../contracts/common.ts';
+import { findBEMElement, findTemplate, renderPack } from '../utils.ts';
 
 const photos = createMocks();
 

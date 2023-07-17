@@ -23,12 +23,17 @@ const findTemplate = <E extends HTMLElement = HTMLElement>(id: string) => {
 	return template as E;
 };
 
-const findBEMElement = <E extends HTMLElement = HTMLElement>(blockNode: Element, element: string, block?: string) => {
+const findBEMElement = <E extends HTMLElement = HTMLElement>(blockNode: Element, element: string, block?: string, modifier?: string) => {
 	if (!block) {
 		block = blockNode.classList[0];
 	}
+	let elementNode;
+	if (modifier) {
+		elementNode = blockNode.querySelector<E>(`.${block}__${element}--${modifier}`);
+	} else {
+		elementNode = blockNode.querySelector<E>(`.${block}__${element}`);
+	}
 
-	const elementNode = blockNode.querySelector<E>(`.${block}__${element}`);
 	if (elementNode === null) {
 		throw new Error(`Element ${element} not found in block ${block}`);
 	}
@@ -42,4 +47,9 @@ const renderPack = <El>(items: El[], container: Element, render: (item: El) => H
 	container.append(fragment);
 };
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack};
+const toggleModalClasses = (wrapper: HTMLElement, willBeOpened = true) => {
+	wrapper.classList.toggle('hidden', !willBeOpened);
+	document.body.classList.toggle('modal-open', willBeOpened);
+};
+
+export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack, toggleModalClasses};

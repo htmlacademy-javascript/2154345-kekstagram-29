@@ -1,5 +1,5 @@
-import { PhotoComment } from './contracts/common';
-import { findBEMElement, findTemplate, renderPack } from './utils';
+import { PhotoComment } from '../contracts/common';
+import { findBEMElement, findTemplate, renderPack } from '../utils';
 
 const commentsStatus = document.querySelector<HTMLDivElement>('.social__comment-count');
 const commentsLoader = document.querySelector<HTMLButtonElement>('.social__comments-loader');

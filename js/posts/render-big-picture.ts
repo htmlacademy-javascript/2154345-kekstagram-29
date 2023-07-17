@@ -1,5 +1,5 @@
-import { isEscapeKey } from './utils';
-import { Photo } from './contracts/common';
+import { isEscapeKey, toggleModalClasses } from '../utils';
+import { Photo } from '../contracts/common';
 import { clearComments, renderComments } from './render-comments';
 clearComments();
 
@@ -28,19 +28,14 @@ const renderBigPicture = ({ url, description, likes, comments }: Photo) => {
 	renderComments(comments);
 };
 
-const toggleModalClasses = (willBeOpened = true) => {
-	bigPicture.classList.toggle('hidden', !willBeOpened);
-	document.body.classList.toggle('modal-open', willBeOpened);
-};
-
 const openModal = (photo: Photo) => {
-	toggleModalClasses(true);
+	toggleModalClasses(bigPicture);
 	renderBigPicture(photo);
 	document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeModal = () => {
-	toggleModalClasses(false);
+	toggleModalClasses(bigPicture, false);
 	clearComments();
 	document.removeEventListener('keydown', onDocumentKeydown);
 };
