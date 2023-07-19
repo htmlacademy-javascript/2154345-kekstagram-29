@@ -3,6 +3,9 @@ import { resetScale } from './scale';
 import { validate, resetValidation } from './validation';
 import { resetEffects } from './effects';
 import { form, wrapper } from './elements';
+import { sendData } from '../clisrv/api';
+
+const uploadingForm = document.querySelector<HTMLFormElement>('.img-upload__form');
 
 const closeForm = () => form!.reset();
 
@@ -23,6 +26,8 @@ form!.addEventListener('submit', (evt) => {
 	evt.preventDefault();
 
 	if (validate()) {
+		const formData = new FormData(uploadingForm!);
+		sendData(formData);
 		closeForm();
 	}
 });

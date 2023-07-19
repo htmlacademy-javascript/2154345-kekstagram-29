@@ -3,7 +3,6 @@ import { openModal } from './render-big-picture.ts';
 import { Photo } from '../contracts/common.ts';
 import { findBEMElement, findTemplate, renderPack } from '../utils.ts';
 
-const photos = createMocks();
 
 const thumbnailsList = document.querySelector('.pictures');
 const pictureTemplate = findTemplate<HTMLAnchorElement>('picture');
@@ -26,9 +25,11 @@ const createThumbnail = ({ url, description, likes, comments }: Photo) => {
 	return pictureElement;
 };
 
-renderPack(photos, thumbnailsList, (photo) => {
+const renderThumbnails = (photos: Photo[]) => renderPack(photos, thumbnailsList, (photo: Photo) => {
 	const thumbnail = createThumbnail(photo);
 	thumbnail.addEventListener('click', () => openModal(photo));
 
 	return thumbnail;
 });
+
+export { renderThumbnails };
