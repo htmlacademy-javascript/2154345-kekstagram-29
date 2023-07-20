@@ -1297,7 +1297,8 @@ main {
 }
 
 .error__button,
-.success__button {
+.success__button,
+.data-error__button {
 	padding: 5px 10px;
 
 	color: #ffffff;
@@ -1311,12 +1312,15 @@ main {
 .error__button:hover,
 .error__button:focus,
 .success__button:hover,
-.success__button:focus {
+.success__button:focus,
+.data-error__button:hover,
+.data-error__button:focus {
 	opacity: 0.8;
 }
 
 .error__button:active,
-.success__button:active {
+.success__button:active,
+.data-error__button:active {
 	opacity: 0.6;
 }
 

@@ -1,6 +1,12 @@
-import { renderThumbnails } from './posts/render-thumbnails.js';
-import './photo-upload/form.js';
-import { getData } from './clisrv/api.js';
-import { showStatus } from './clisrv/status.js';
+import { renderThumbnails } from './posts/render-thumbnails';
+import { getData } from './fetch/api';
+import { showStatus } from './fetch/status';
+import './photo-upload/form';
 
-getData();
+getData()
+	.then((photos) => {
+		renderThumbnails(photos);
+	})
+	.catch((err) => {
+		showStatus('dataError');
+	});
