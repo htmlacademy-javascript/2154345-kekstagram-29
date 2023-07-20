@@ -7,6 +7,6 @@ getData()
 	.then((photos) => {
 		renderThumbnails(photos);
 	})
-	.catch((err) => {
+	.catch(() => {
 		showStatus('dataError');
 	});

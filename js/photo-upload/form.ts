@@ -52,12 +52,12 @@ form!.addEventListener('submit', (evt) => {
 		const formData = new FormData(uploadingForm!);
 		blockSubmitButton();
 		sendData(formData)
-			.then((data) => {
+			.then(() => {
 				showStatus('success');
 				closeForm();
 				unblockSubmitButton();
 			})
-			.catch((err) => {
+			.catch(() => {
 				showStatus('error');
 				unblockSubmitButton();
 			});
