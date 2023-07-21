@@ -1,4 +1,12 @@
-import './posts/render-thumbnails.js';
-import './photo-upload/form.ts';
-import './photo-upload/scale.ts';
-import './photo-upload/effects.ts';
+import { renderThumbnails } from './posts/render-thumbnails';
+import { getData } from './fetch/api';
+import { showStatus } from './fetch/status';
+import './photo-upload/form';
+
+getData()
+	.then((photos) => {
+		renderThumbnails(photos);
+	})
+	.catch(() => {
+		showStatus('dataError');
+	});

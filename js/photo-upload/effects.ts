@@ -19,7 +19,7 @@ effectsWrapper!.addEventListener('change', () => {
 	const effect = form!.effect.value;
 
 	sliderContainer!.hidden = effect === 'none';
-	slider.updateOptions(EFFECTS_OPTIONS_MAP[effect].slider, false);
+	slider.updateOptions(EFFECTS_OPTIONS_MAP[effect].slider, true);
 });
 
 slider.on('update', () => {
@@ -37,7 +37,7 @@ slider.on('update', () => {
 
 const resetEffects = () => {
 	form!.effect.value = 'none';
-	document.dispatchEvent(CHANGE_EVENT);
+	effectsWrapper!.dispatchEvent(CHANGE_EVENT);
 };
 
-export { slider, resetEffects };
+export { resetEffects };
