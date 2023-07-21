@@ -65,14 +65,14 @@ const toggleModalClasses = (wrapper: HTMLElement, willBeOpened = true) => {
 	document.body.classList.toggle('modal-open', willBeOpened);
 };
 
-function debounce (callback: () => void, timeoutDelay = 500) {
-	let timeoutId: number;
+// function debounce (callback: () => void, timeoutDelay = 500) {
+// 	let timeoutId: number;
 
-	return (...rest) => {
-		clearTimeout(timeoutId);
+// 	return (...rest) => {
+// 		clearTimeout(timeoutId);
 
-		timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-	};
-}
+// 		timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+// 	};
+// }
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack, toggleModalClasses, getRandomIdPack, debounce};
+export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack, toggleModalClasses, getRandomIdPack};

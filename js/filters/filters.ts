@@ -1,13 +1,11 @@
 import { Photo } from '../contracts/common';
 import { renderThumbnails } from '../posts/render-thumbnails';
-import { getRandomIdPack, debounce } from '../utils';
+import { getRandomIdPack } from '../utils';
 
 const filters = document.querySelector('.img-filters')!;
 const defaultButton = filters.querySelector('#filter-default')!;
 const randomButton = filters.querySelector('#filter-random')!;
 const discussedButton = filters.querySelector('#filter-discussed')!;
-
-const RERENDER_DELAY = 500;
 
 function compareComments({ comments: commentsA }: Photo, { comments: commentsB }: Photo) {
 	return commentsB.length - commentsA.length;
