@@ -4,7 +4,6 @@ import { showStatus } from './fetch/status';
 import './photo-upload/form';
 import { initFilters } from './filters/filters';
 
-
 getData()
 	.then((photos) => {
 		renderThumbnails(photos);
