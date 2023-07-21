@@ -7,6 +7,19 @@ const getRandomInteger = (a: number, b: number) : number => {
 
 const getRandomArrayElement = <El>(elements: El[] | readonly El[]): El => elements[getRandomInteger(0, elements.length - 1)];
 
+const getRandomIdPack = () => {
+	const idPack: number[] = [];
+	let randomNumber = getRandomInteger(1, 24);
+	while (idPack.length < 10) {
+		if (!idPack.includes(randomNumber)) {
+			idPack.push(randomNumber);
+		}
+		randomNumber = getRandomInteger(0, 24);
+	}
+
+	return idPack;
+};
+
 const isEscapeKey = (evt: KeyboardEvent) => evt.key === 'Escape';
 
 const findTemplate = <E extends HTMLElement = HTMLElement>(id: string) => {
@@ -52,4 +65,4 @@ const toggleModalClasses = (wrapper: HTMLElement, willBeOpened = true) => {
 	document.body.classList.toggle('modal-open', willBeOpened);
 };
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack, toggleModalClasses};
+export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack, toggleModalClasses, getRandomIdPack};

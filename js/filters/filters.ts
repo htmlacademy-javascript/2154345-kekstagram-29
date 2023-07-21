@@ -1,24 +1,11 @@
 import { Photo } from '../contracts/common';
 import { renderThumbnails } from '../posts/render-thumbnails';
-import { getRandomInteger } from '../utils';
+import { getRandomIdPack } from '../utils';
 
 const filters = document.querySelector('.img-filters')!;
 const defaultButton = filters.querySelector('#filter-default')!;
 const randomButton = filters.querySelector('#filter-random')!;
 const discussedButton = filters.querySelector('#filter-discussed')!;
-
-const getRandomIdPack = () => {
-	const idPack: number[] = [];
-	let randomNumber = getRandomInteger(1, 24);
-	while (idPack.length < 10) {
-		if (!idPack.includes(randomNumber)) {
-			idPack.push(randomNumber);
-		}
-		randomNumber = getRandomInteger(0, 24);
-	}
-
-	return idPack;
-};
 
 function compareComments({ comments: commentsA }: Photo, { comments: commentsB }: Photo) {
 	return commentsB.length - commentsA.length;
