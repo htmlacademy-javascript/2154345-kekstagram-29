@@ -73,7 +73,7 @@ function debounce(callback: (photos: Photo[]) => void, timeoutDelay = 500) {
 	return (...rest: [photos: Photo[]]) => {
 		clearTimeout(timeoutId);
 
-		timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+		timeoutId = window.setTimeout(() => callback.apply(this, rest), timeoutDelay);
 	};
 }
 
