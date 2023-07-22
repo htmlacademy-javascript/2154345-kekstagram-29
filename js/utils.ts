@@ -68,12 +68,12 @@ const toggleModalClasses = (wrapper: HTMLElement, willBeOpened = true) => {
 };
 
 function debounce(callback: (photos: Photo[]) => void, timeoutDelay = 500) {
-	let timeoutId: number;
+	let timeoutId: ReturnType<typeof setTimeout>;
 
 	return (...rest: [photos: Photo[]]) => {
 		clearTimeout(timeoutId);
 
-		timeoutId = window.setTimeout(() => callback.apply(this, rest), timeoutDelay);
+		timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
 	};
 }
 
