@@ -1,3 +1,5 @@
+import { Photo } from './contracts/common';
+
 const getRandomInteger = (a: number, b: number) : number => {
 	const lower: number = Math.ceil(Math.min(a, b));
 	const upper: number = Math.floor(Math.max(a, b));
@@ -65,14 +67,15 @@ const toggleModalClasses = (wrapper: HTMLElement, willBeOpened = true) => {
 	document.body.classList.toggle('modal-open', willBeOpened);
 };
 
-// function debounce (callback: () => void, timeoutDelay = 500) {
-// 	let timeoutId: number;
+function debounce(callback: (photos: Photo[]) => void, timeoutDelay = 500) {
+	let timeoutId: number;
 
-// 	return (...rest) => {
-// 		clearTimeout(timeoutId);
+	return (...rest: [photos: Photo[]]) => {
+		clearTimeout(timeoutId);
 
-// 		timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-// 	};
-// }
+		timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+	};
+}
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack, toggleModalClasses, getRandomIdPack};
+export { getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate,
+	findBEMElement, renderPack, toggleModalClasses, getRandomIdPack, debounce };
