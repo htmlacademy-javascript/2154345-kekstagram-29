@@ -8,7 +8,7 @@ const setFilters = (cb: (currentPhotos: Photo[]) => void, photos: Photo[]) => {
 		const currentTarget = evt.target! as HTMLElement;
 
 		// Если на кнопке два класса, то эта кнопка активна в данный момент и ререндер не нужен
-		const isClickCorrect = (currentTarget.classList[0] !== 'img-filters__button') || (currentTarget.classList.length < 2);
+		const isClickCorrect = (currentTarget.classList[0] === 'img-filters__button') && (currentTarget.classList.length < 2);
 		if (!isClickCorrect) {
 			return;
 		}
