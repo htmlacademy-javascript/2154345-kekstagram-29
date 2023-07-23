@@ -27,6 +27,8 @@ const filterOptions = {
 	discussed: discussedFilter
 };
 
+type FilterOption = keyof typeof filterOptions;
+
 let previousButton = defaultButton;
 
 const toggleActiveState = (event: Event) => {
@@ -36,4 +38,5 @@ const toggleActiveState = (event: Event) => {
 	previousButton = targetButton;
 };
 
+export type { FilterOption };
 export { filterOptions, toggleActiveState, filters };

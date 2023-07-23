@@ -1,5 +1,5 @@
 import { Photo } from '../contracts/common';
-import { filterOptions, toggleActiveState, filters } from './filters-utils';
+import { filterOptions, toggleActiveState, filters, FilterOption } from './filters-utils';
 
 const setFilters = (cb: (currentPhotos: Photo[]) => void, photos: Photo[]) => {
 	filters.classList.remove('img-filters--inactive');
@@ -14,11 +14,9 @@ const setFilters = (cb: (currentPhotos: Photo[]) => void, photos: Photo[]) => {
 		}
 
 		toggleActiveState(evt);
-		const currentElement = evt.target as HTMLButtonElement;
-		const currentFilterName = currentElement.getAttribute('id')!.split('-')[1];
-		const currentFilter = filterOptions[currentFilterName as keyof typeof filterOptions];
+		const currentFilterName = currentTarget.getAttribute('id')!.split('-')[1];
+		const currentFilter = filterOptions[currentFilterName as FilterOption];
 		const currentPhotos = currentFilter(photos);
-		document.querySelectorAll('.picture').forEach((el) => el.remove());
 		cb(currentPhotos);
 	};
 
