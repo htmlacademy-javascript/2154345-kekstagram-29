@@ -25,6 +25,7 @@ const createThumbnail = ({ url, description, likes, comments }: Photo) => {
 };
 
 const renderThumbnails = (photos: Photo[]) => renderPack(photos, thumbnailsList, (photo: Photo) => {
+	document.querySelectorAll('.picture').forEach((el) => el.remove());
 	const thumbnail = createThumbnail(photo);
 	thumbnail.addEventListener('click', () => openModal(photo));
 
