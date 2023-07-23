@@ -1,3 +1,5 @@
+import { Photo } from './contracts/common';
+
 const getRandomInteger = (a: number, b: number) : number => {
 	const lower: number = Math.ceil(Math.min(a, b));
 	const upper: number = Math.floor(Math.max(a, b));
@@ -6,6 +8,19 @@ const getRandomInteger = (a: number, b: number) : number => {
 };
 
 const getRandomArrayElement = <El>(elements: El[] | readonly El[]): El => elements[getRandomInteger(0, elements.length - 1)];
+
+const getRandomIdPack = () => {
+	const idPack: number[] = [];
+	let randomNumber = getRandomInteger(1, 24);
+	while (idPack.length < 10) {
+		if (!idPack.includes(randomNumber)) {
+			idPack.push(randomNumber);
+		}
+		randomNumber = getRandomInteger(0, 24);
+	}
+
+	return idPack;
+};
 
 const isEscapeKey = (evt: KeyboardEvent) => evt.key === 'Escape';
 
@@ -52,4 +67,15 @@ const toggleModalClasses = (wrapper: HTMLElement, willBeOpened = true) => {
 	document.body.classList.toggle('modal-open', willBeOpened);
 };
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate, findBEMElement, renderPack, toggleModalClasses};
+function debounce(callback: (photos: Photo[]) => void, timeoutDelay = 500) {
+	let timeoutId: ReturnType<typeof setTimeout>;
+
+	return (...rest: [photos: Photo[]]) => {
+		clearTimeout(timeoutId);
+
+		timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+	};
+}
+
+export { getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate,
+	findBEMElement, renderPack, toggleModalClasses, getRandomIdPack, debounce };

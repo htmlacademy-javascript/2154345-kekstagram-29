@@ -2,30 +2,25 @@ import { isEscapeKey, toggleModalClasses } from '../utils';
 import { resetScale } from './scale';
 import { validate, resetValidation } from './validation';
 import { resetEffects } from './effects';
-import { form, wrapper, image, submitButton } from './elements';
+import { form, wrapper, submitButton } from './elements';
 import { sendData } from '../fetch/api';
 import { showStatus } from '../fetch/status';
+import { loadPreview } from './load-preview';
 
 const uploadingForm = document.querySelector<HTMLFormElement>('.img-upload__form');
 
+if (!form) {
+	throw new Error('Critical form element were not found');
+}
+
 const closeForm = () => form!.reset();
 
-form!.filename.addEventListener('change', (evt) => {
+form!.filename.addEventListener('change', () => {
 	toggleModalClasses(wrapper!);
 	document.addEventListener('keydown', onDocumentKeydown);
-	const tgt = evt.target as HTMLInputElement;
-	const files = tgt!.files;
-
-	if (FileReader && files && files.length) {
-		const fr = new FileReader();
-		fr.onload = () => showImage(fr);
-		fr.readAsDataURL(files[0]);
-	}
+	const file = form!.filename.files![0];
+	loadPreview(file);
 });
-
-function showImage(fileReader: FileReader) {
-	image!.src = fileReader.result as string;
-}
 
 form!.addEventListener('reset', () => {
 	toggleModalClasses(wrapper!, false);
