@@ -3,8 +3,6 @@ import { getRandomIdPack } from '../utils';
 
 const filters = document.querySelector('.img-filters')!;
 const defaultButton = filters.querySelector('#filter-default')!;
-const randomButton = filters.querySelector('#filter-random')!;
-const discussedButton = filters.querySelector('#filter-discussed')!;
 
 const compareComments = ({ comments: commentsA }: Photo, { comments: commentsB }: Photo) => commentsB.length - commentsA.length;
 
@@ -29,14 +27,13 @@ const filterOptions = {
 	discussed: discussedFilter
 };
 
+let previousButton = defaultButton;
+
 const toggleActiveState = (event: Event) => {
+	previousButton.classList.remove('img-filters__button--active');
 	const targetButton = event.target as HTMLElement;
-
-	[defaultButton, randomButton, discussedButton].forEach((button) => {
-		button.classList.remove('img-filters__button--active');
-	});
-
 	targetButton.classList.add('img-filters__button--active');
+	previousButton = targetButton;
 };
 
 export { filterOptions, toggleActiveState, filters };
