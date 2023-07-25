@@ -12,6 +12,8 @@ if (!commentsLoader || !commentsList || !commentsStatus || !commentsList) {
 	throw new Error('Critical elements for comments were not found');
 }
 
+const [currentStatus, commentsCount] = commentsStatus.childNodes;
+
 const createComment = ({ avatar, name, message }: PhotoComment) => {
 	const comment = commentTemplate.cloneNode(true) as typeof commentTemplate;
 	const commentAvatar = findBEMElement<HTMLImageElement>(comment, 'picture', 'social');
@@ -35,13 +37,14 @@ commentsLoader.addEventListener('click', () => {
 	renderPack(nextPack, commentsList, createComment);
 
 	shownCommentsAmount = nextCommentAmount;
-	commentsStatus.textContent = `${shownCommentsAmount} из ${totalCommentsAmount} комментариев`;
+	currentStatus.textContent = `${shownCommentsAmount} из `;
 
 	const areAllCommentsShown = shownCommentsAmount >= totalCommentsAmount;
 	commentsLoader.hidden = areAllCommentsShown;
 });
 
 const renderComments = (comments: PhotoComment[]) => {
+	commentsCount.textContent = comments.length.toString();
 	currentComments = comments;
 	commentsLoader.click();
 };

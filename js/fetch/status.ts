@@ -29,7 +29,6 @@ const statuses = {
 };
 
 type StatusType = 'error' | 'success' | 'dataError';
-
 const showStatus = (statusName: StatusType) => {
 	const currentStatusOptions = statuses[statusName];
 	const currentStatus = currentStatusOptions.template;
