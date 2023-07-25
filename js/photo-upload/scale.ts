@@ -6,17 +6,24 @@ const controlSmaller = findBEMElement(scale, 'control', 'scale', 'smaller');
 const controlBigger = findBEMElement(scale, 'control', 'scale', 'bigger');
 const scaleField = findBEMElement<HTMLInputElement>(scale, 'control', 'scale', 'value');
 
+const enum Scale {
+	MinScaleValue = 25,
+	MaxScaleValue = 100,
+	ScaleStep = 25,
+	ParsingScaleValue = 100
+}
+
 const getScaleValue = (value: number, isDecrease = true) => {
 	if (isDecrease) {
-		return Math.max(0.25, value - 0.25);
+		return Math.max(Scale.MinScaleValue, value - Scale.ScaleStep);
 	}
 
-	return Math.min(1, value + 0.25);
+	return Math.min(Scale.MaxScaleValue, value + Scale.ScaleStep);
 };
 
 const setScale = (value: number) => {
-	image!.style.transform = `scale(${value})`;
-	scaleField.value = `${value * 100}%`;
+	image!.style.transform = `scale(${value / Scale.ParsingScaleValue})`;
+	scaleField.value = `${value}%`;
 };
 
 const resetScale = () => {
@@ -24,8 +31,8 @@ const resetScale = () => {
 };
 
 const onScaleChange = (isDecrease = true) => {
-	const scaleFieldCurrent = parseInt(scaleField.value, 10) / 100;
-	const scaleValue = getScaleValue(scaleFieldCurrent, isDecrease);
+	const currentScaleFieldValue = parseInt(scaleField.value, 10);
+	const scaleValue = getScaleValue(currentScaleFieldValue, isDecrease);
 	setScale(scaleValue);
 };
 

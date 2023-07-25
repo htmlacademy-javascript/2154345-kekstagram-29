@@ -77,5 +77,14 @@ function debounce(callback: (photos: Photo[]) => void, timeoutDelay = 500) {
 	};
 }
 
-export { getRandomInteger, getRandomArrayElement, isEscapeKey, findTemplate,
-	findBEMElement, renderPack, toggleModalClasses, getRandomIdPack, debounce };
+export {
+	getRandomInteger,
+	getRandomArrayElement,
+	isEscapeKey,
+	findTemplate,
+	findBEMElement,
+	renderPack,
+	toggleModalClasses,
+	getRandomIdPack,
+	debounce
+};
