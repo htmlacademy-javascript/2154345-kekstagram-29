@@ -6,10 +6,10 @@ settings:
 
 dependencies:
   nouislider:
-    specifier: ^15.7.1
+    specifier: 15.7.1
     version: 15.7.1
   pristinejs:
-    specifier: ^1.1.0
+    specifier: 1.1.0
     version: 1.1.0
 
 devDependencies:
@@ -1962,7 +1962,7 @@ packages:
 
   /pristinejs@1.1.0:
     resolution: {integrity: sha512-ardy/YEaZr5E1l0YM2eOkeQx0KoenQjBa7HkfX4Dt0PmqKhZUfyAIT9Qk23vGv4vvvWy/zb/eBe6sSsKUtahrg==}
-    dev: true
+    dev: false
 
   /prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
