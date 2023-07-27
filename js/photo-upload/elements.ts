@@ -13,17 +13,17 @@ type UploadForm = HTMLFormElement & {
 	description: HTMLInputElement;
 };
 
-const form = document.querySelector<UploadForm>('.img-upload__form');
-const wrapper = form!.querySelector<HTMLDivElement>('.img-upload__overlay');
-const image = document.querySelector<HTMLImageElement>('.img-upload__preview img');
-const effectsWrapper = document.querySelector<HTMLUListElement>('.effects__list');
-const imagePreviews: NodeListOf<HTMLSpanElement> = effectsWrapper!.querySelectorAll('.effects__preview');
-const sliderContainer = document.querySelector<HTMLDivElement>('.img-upload__effect-level');
-const sliderWrapper = document.querySelector<HTMLDivElement>('.effect-level__slider');
-const submitButton = form?.querySelector<HTMLButtonElement>('.img-upload__submit');
+const formElement = document.querySelector<UploadForm>('.img-upload__form');
+const wrapperElement = formElement!.querySelector<HTMLDivElement>('.img-upload__overlay');
+const imageElement = document.querySelector<HTMLImageElement>('.img-upload__preview img');
+const effectsWrapperElement = document.querySelector<HTMLUListElement>('.effects__list');
+const imagePreviewElements = effectsWrapperElement!.querySelectorAll<HTMLSpanElement>('.effects__preview');
+const sliderContainerElement = document.querySelector<HTMLDivElement>('.img-upload__effect-level');
+const sliderWrapperElement = document.querySelector<HTMLDivElement>('.effect-level__slider');
+const submitButtonElement = formElement?.querySelector<HTMLButtonElement>('.img-upload__submit');
 
-if (!form || !wrapper || !image || !sliderWrapper || !submitButton) {
+if (!formElement || !wrapperElement || !imageElement || !sliderWrapperElement || !submitButtonElement) {
 	throw new Error('Form or her critical elements were not found.');
 }
 
-export { form, wrapper, image, imagePreviews, sliderContainer, sliderWrapper, effectsWrapper, submitButton };
+export { formElement, wrapperElement, imageElement, imagePreviewElements, sliderContainerElement, sliderWrapperElement, effectsWrapperElement, submitButtonElement };

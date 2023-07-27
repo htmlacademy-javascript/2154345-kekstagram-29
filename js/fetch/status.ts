@@ -34,7 +34,6 @@ const showStatus = (statusName: StatusType) => {
 	const currentStatus = currentStatusOptions.template;
 	const currentStatusAction = currentStatusOptions.buttonAction;
 	document.body.append(currentStatus);
-	document.body.classList.add('modal-open');
 
 	document.addEventListener('click', (evt) => {
 		const currentTarget = evt.target as HTMLDivElement;

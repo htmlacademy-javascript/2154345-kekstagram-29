@@ -1,8 +1,8 @@
 import { Photo } from '../contracts/common';
 import { getRandomIdPack } from '../utils';
 
-const filters = document.querySelector('.img-filters')!;
-const defaultButton = filters.querySelector('#filter-default')!;
+const filtersElement = document.querySelector('.img-filters')!;
+const defaultButtonElement = filtersElement.querySelector('#filter-default')!;
 
 const compareComments = ({ comments: commentsA }: Photo, { comments: commentsB }: Photo) => commentsB.length - commentsA.length;
 
@@ -29,7 +29,7 @@ const filterOptions = {
 
 type FilterOption = keyof typeof filterOptions;
 
-let previousButton = defaultButton;
+let previousButton = defaultButtonElement;
 
 const toggleActiveState = (event: Event) => {
 	previousButton.classList.remove('img-filters__button--active');
@@ -39,4 +39,4 @@ const toggleActiveState = (event: Event) => {
 };
 
 export type { FilterOption };
-export { filterOptions, toggleActiveState, filters };
+export { filterOptions, toggleActiveState, filtersElement };

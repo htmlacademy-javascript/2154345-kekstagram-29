@@ -1,10 +1,10 @@
 import { Photo } from '../contracts/common';
-import { filterOptions, toggleActiveState, filters, FilterOption } from './filters-utils';
+import { filterOptions, toggleActiveState, filtersElement, FilterOption } from './filters-utils';
 
 const MAX_CLASS_NUMBER_ON_MATCHING_BUTTON = 2;
 
 const setFilters = (cb: (currentPhotos: Photo[]) => void, photos: Photo[]) => {
-	filters.classList.remove('img-filters--inactive');
+	filtersElement.classList.remove('img-filters--inactive');
 
 	const onFilterButtonClick = (evt: Event) => {
 		const currentTarget = evt.target! as HTMLElement;
@@ -22,7 +22,7 @@ const setFilters = (cb: (currentPhotos: Photo[]) => void, photos: Photo[]) => {
 		cb(currentPhotos);
 	};
 
-	filters.addEventListener('click', onFilterButtonClick);
+	filtersElement.addEventListener('click', onFilterButtonClick);
 };
 
 export { setFilters };

@@ -1,12 +1,12 @@
 import { PhotoComment } from '../contracts/common';
 import { findBEMElement, findTemplate, renderPack } from '../utils';
 
+const NUMBER_OF_IMAGE_PER_LOAD = 5;
+
 const commentsStatus = document.querySelector<HTMLDivElement>('.social__comment-count');
 const commentsLoader = document.querySelector<HTMLButtonElement>('.social__comments-loader');
 const commentTemplate = findTemplate<HTMLLIElement>('comment');
 const commentsList = document.querySelector<HTMLUListElement>('.social__comments');
-
-const NUMBER_OF_IMAGE_PER_LOAD = 5;
 
 if (!commentsLoader || !commentsList || !commentsStatus || !commentsList) {
 	throw new Error('Critical elements for comments were not found');

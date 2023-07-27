@@ -1,5 +1,5 @@
 import { findBEMElement } from '../utils';
-import { image } from './elements';
+import { imageElement } from './elements';
 
 const scale = document.querySelector('.scale')!;
 const controlSmaller = findBEMElement(scale, 'control', 'scale', 'smaller');
@@ -22,12 +22,12 @@ const getScaleValue = (value: number, isDecrease = true) => {
 };
 
 const setScale = (value: number) => {
-	image!.style.transform = `scale(${value / Scale.ParsingScaleValue})`;
+	imageElement!.style.transform = `scale(${value / Scale.ParsingScaleValue})`;
 	scaleField.value = `${value}%`;
 };
 
 const resetScale = () => {
-	image!.style.removeProperty('transform');
+	imageElement!.style.removeProperty('transform');
 };
 
 const onScaleChange = (isDecrease = true) => {
