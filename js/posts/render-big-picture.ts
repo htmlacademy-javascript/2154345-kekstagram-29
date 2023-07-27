@@ -40,7 +40,9 @@ const closeModal = () => {
 	document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-closeButton.addEventListener('click', closeModal);
+const onModalCloseButtonClick = closeModal;
+
+closeButton.addEventListener('click', onModalCloseButtonClick);
 
 function onDocumentKeydown(evt: KeyboardEvent) {
 	if (isEscapeKey(evt)) {

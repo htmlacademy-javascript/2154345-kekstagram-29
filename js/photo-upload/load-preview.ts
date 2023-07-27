@@ -1,4 +1,4 @@
-import { image, imagePreviews } from './elements';
+import { imageElement, imagePreviewElements } from './elements';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
@@ -11,8 +11,8 @@ const loadPreview = (file: File) => {
 
 	const fileURL = URL.createObjectURL(file);
 
-	image!.src = fileURL;
-	imagePreviews.forEach((preview) => {
+	imageElement!.src = fileURL;
+	imagePreviewElements.forEach((preview) => {
 		preview.style.backgroundImage = `url(${fileURL})`;
 	});
 };

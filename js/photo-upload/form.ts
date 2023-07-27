@@ -2,28 +2,28 @@ import { isEscapeKey, toggleModalClasses } from '../utils';
 import { resetScale } from './scale';
 import { validate, resetValidation } from './validation';
 import { resetEffects } from './effects';
-import { form, wrapper, submitButton } from './elements';
+import { formElement, wrapperElement, submitButtonElement } from './elements';
 import { sendData } from '../fetch/api';
 import { showStatus } from '../fetch/status';
 import { loadPreview } from './load-preview';
 
 const uploadingForm = document.querySelector<HTMLFormElement>('.img-upload__form');
 
-if (!form) {
+if (!formElement) {
 	throw new Error('Critical form element were not found');
 }
 
-const closeForm = () => form!.reset();
+const closeForm = () => formElement!.reset();
 
-form!.filename.addEventListener('change', () => {
-	toggleModalClasses(wrapper!);
+formElement!.filename.addEventListener('change', () => {
+	toggleModalClasses(wrapperElement!);
 	document.addEventListener('keydown', onDocumentKeydown);
-	const file = form!.filename.files![0];
+	const file = formElement!.filename.files![0];
 	loadPreview(file);
 });
 
-form!.addEventListener('reset', () => {
-	toggleModalClasses(wrapper!, false);
+formElement!.addEventListener('reset', () => {
+	toggleModalClasses(wrapperElement!, false);
 	document.removeEventListener('keydown', onDocumentKeydown);
 	resetValidation();
 	resetScale();
@@ -31,16 +31,16 @@ form!.addEventListener('reset', () => {
 });
 
 const blockSubmitButton = () => {
-	submitButton!.disabled = true;
-	submitButton!.textContent = 'Публикация...';
+	submitButtonElement!.disabled = true;
+	submitButtonElement!.textContent = 'Публикация...';
 };
 
 const unblockSubmitButton = () => {
-	submitButton!.disabled = false;
-	submitButton!.textContent = 'Опубликовать';
+	submitButtonElement!.disabled = false;
+	submitButtonElement!.textContent = 'Опубликовать';
 };
 
-form!.addEventListener('submit', (evt) => {
+formElement!.addEventListener('submit', (evt) => {
 	evt.preventDefault();
 
 	if (validate()) {
@@ -60,7 +60,7 @@ form!.addEventListener('submit', (evt) => {
 });
 
 function onDocumentKeydown(evt: KeyboardEvent) {
-	const isFocusOnInputs = form!.hashtags === document.activeElement || form!.description === document.activeElement;
+	const isFocusOnInputs = formElement!.hashtags === document.activeElement || formElement!.description === document.activeElement;
 	const isErrorOpened = Boolean(document.querySelector('.error'));
 
 	if (isEscapeKey(evt) && !isFocusOnInputs && !isErrorOpened) {

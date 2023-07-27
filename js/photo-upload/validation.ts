@@ -1,7 +1,7 @@
-import { form } from './elements';
+import { formElement } from './elements';
 import Pristine from 'pristinejs';
 
-const hashtagsInput = form!.hashtags;
+const hashtagsInput = formElement!.hashtags;
 
 const REGEX = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
 
@@ -15,7 +15,7 @@ const enum Hashtags {
 	OnlySharpError = 'Хэш-тег не может состоять только из одной решетки'
 }
 
-const pristine = new Pristine(form, {
+const pristine = new Pristine(formElement, {
 	classTo: 'img-upload__field-wrapper',
 	errorTextParent: 'img-upload__field-wrapper',
 	errorTextTag: 'span',
@@ -86,7 +86,7 @@ pristine.addValidator(
 const validate = () => pristine.validate();
 const resetValidation = () => pristine.reset();
 
-form!.addEventListener('submit', (evt) => {
+formElement!.addEventListener('submit', (evt) => {
 	evt.preventDefault();
 	pristine.validate();
 });
