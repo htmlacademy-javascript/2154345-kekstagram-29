@@ -1,10 +1,10 @@
 import { findBEMElement } from '../utils';
 import { imageElement } from './elements';
 
-const scale = document.querySelector('.scale')!;
-const controlSmaller = findBEMElement(scale, 'control', 'scale', 'smaller');
-const controlBigger = findBEMElement(scale, 'control', 'scale', 'bigger');
-const scaleField = findBEMElement<HTMLInputElement>(scale, 'control', 'scale', 'value');
+const scaleElement = document.querySelector('.scale')!;
+const controlSmallerElement = findBEMElement(scaleElement, 'control', 'scale', 'smaller');
+const controlBiggerElement = findBEMElement(scaleElement, 'control', 'scale', 'bigger');
+const scaleFieldElement = findBEMElement<HTMLInputElement>(scaleElement, 'control', 'scale', 'value');
 
 const enum Scale {
 	MinScaleValue = 25,
@@ -23,7 +23,7 @@ const getScaleValue = (value: number, isDecrease = true) => {
 
 const setScale = (value: number) => {
 	imageElement!.style.transform = `scale(${value / Scale.ParsingScaleValue})`;
-	scaleField.value = `${value}%`;
+	scaleFieldElement.value = `${value}%`;
 };
 
 const resetScale = () => {
@@ -31,16 +31,16 @@ const resetScale = () => {
 };
 
 const onScaleChange = (isDecrease = true) => {
-	const currentScaleFieldValue = parseInt(scaleField.value, 10);
+	const currentScaleFieldValue = parseInt(scaleFieldElement.value, 10);
 	const scaleValue = getScaleValue(currentScaleFieldValue, isDecrease);
 	setScale(scaleValue);
 };
 
-controlSmaller.addEventListener('click', () => {
+controlSmallerElement.addEventListener('click', () => {
 	onScaleChange(true);
 });
 
-controlBigger.addEventListener('click', () => {
+controlBiggerElement.addEventListener('click', () => {
 	onScaleChange(false);
 });
 
