@@ -3,14 +3,14 @@ import { Photo } from '../contracts/common.ts';
 import { findBEMElement, findTemplate, renderPack } from '../utils.ts';
 
 
-const thumbnailsList = document.querySelector('.pictures');
-const pictureTemplate = findTemplate<HTMLAnchorElement>('picture');
-if (!thumbnailsList || !pictureTemplate) {
+const thumbnailsListElement = document.querySelector('.pictures');
+const pictureTmp = findTemplate<HTMLAnchorElement>('picture');
+if (!thumbnailsListElement || !pictureTmp) {
 	throw new Error('Critical. Picture elements not found.');
 }
 
 const createThumbnail = ({ url, description, likes, comments }: Photo) => {
-	const pictureElement = pictureTemplate.cloneNode(true) as typeof pictureTemplate;
+	const pictureElement = pictureTmp.cloneNode(true) as typeof pictureTmp;
 	const pictureTag = findBEMElement<HTMLImageElement>(pictureElement, 'img');
 	if (!pictureTag) {
 		throw new Error('Critical. Picture elements not found.');
@@ -24,7 +24,7 @@ const createThumbnail = ({ url, description, likes, comments }: Photo) => {
 	return pictureElement;
 };
 
-const renderThumbnails = (photos: Photo[]) => renderPack(photos, thumbnailsList, (photo: Photo) => {
+const renderThumbnails = (photos: Photo[]) => renderPack(photos, thumbnailsListElement, (photo: Photo) => {
 	document.querySelectorAll('.picture').forEach((el) => el.remove());
 	const thumbnail = createThumbnail(photo);
 	thumbnail.addEventListener('click', () => openModal(photo));

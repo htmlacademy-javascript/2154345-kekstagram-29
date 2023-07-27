@@ -7,8 +7,6 @@ import { sendData } from '../fetch/api';
 import { showStatus } from '../fetch/status';
 import { loadPreview } from './load-preview';
 
-const uploadingForm = document.querySelector<HTMLFormElement>('.img-upload__form');
-
 if (!formElement) {
 	throw new Error('Critical form element were not found');
 }
@@ -44,7 +42,7 @@ formElement!.addEventListener('submit', (evt) => {
 	evt.preventDefault();
 
 	if (validate()) {
-		const formData = new FormData(uploadingForm!);
+		const formData = new FormData(formElement!);
 		blockSubmitButton();
 		sendData(formData)
 			.then(() => {

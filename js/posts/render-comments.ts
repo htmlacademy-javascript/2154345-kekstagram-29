@@ -3,19 +3,19 @@ import { findBEMElement, findTemplate, renderPack } from '../utils';
 
 const NUMBER_OF_IMAGE_PER_LOAD = 5;
 
-const commentsStatus = document.querySelector<HTMLDivElement>('.social__comment-count');
-const commentsLoader = document.querySelector<HTMLButtonElement>('.social__comments-loader');
-const commentTemplate = findTemplate<HTMLLIElement>('comment');
-const commentsList = document.querySelector<HTMLUListElement>('.social__comments');
+const commentsStatusElement = document.querySelector<HTMLDivElement>('.social__comment-count');
+const commentsLoaderElement = document.querySelector<HTMLButtonElement>('.social__comments-loader');
+const commentTemplateElement = findTemplate<HTMLLIElement>('comment');
+const commentsListElement = document.querySelector<HTMLUListElement>('.social__comments');
 
-if (!commentsLoader || !commentsList || !commentsStatus || !commentsList) {
+if (!commentsLoaderElement || !commentsListElement || !commentsStatusElement || !commentsListElement) {
 	throw new Error('Critical elements for comments were not found');
 }
 
-const [currentStatus, commentsCount] = commentsStatus.childNodes;
+const [currentStatus, commentsCount] = commentsStatusElement.childNodes;
 
 const createComment = ({ avatar, name, message }: PhotoComment) => {
-	const comment = commentTemplate.cloneNode(true) as typeof commentTemplate;
+	const comment = commentTemplateElement.cloneNode(true) as typeof commentTemplateElement;
 	const commentAvatar = findBEMElement<HTMLImageElement>(comment, 'picture', 'social');
 	const commentText = findBEMElement<HTMLElement>(comment, 'text', 'social');
 
@@ -29,28 +29,28 @@ const createComment = ({ avatar, name, message }: PhotoComment) => {
 let shownCommentsAmount = 0;
 let currentComments: PhotoComment[] = [];
 
-commentsLoader.addEventListener('click', () => {
+commentsLoaderElement.addEventListener('click', () => {
 	const totalCommentsAmount = currentComments.length;
 	const nextCommentAmount = Math.min(shownCommentsAmount + NUMBER_OF_IMAGE_PER_LOAD, totalCommentsAmount);
 	const nextPack = currentComments.slice(shownCommentsAmount, nextCommentAmount);
 
-	renderPack(nextPack, commentsList, createComment);
+	renderPack(nextPack, commentsListElement, createComment);
 
 	shownCommentsAmount = nextCommentAmount;
 	currentStatus.textContent = `${shownCommentsAmount} из `;
 
 	const areAllCommentsShown = shownCommentsAmount >= totalCommentsAmount;
-	commentsLoader.hidden = areAllCommentsShown;
+	commentsLoaderElement.hidden = areAllCommentsShown;
 });
 
 const renderComments = (comments: PhotoComment[]) => {
 	commentsCount.textContent = comments.length.toString();
 	currentComments = comments;
-	commentsLoader.click();
+	commentsLoaderElement.click();
 };
 
 const clearComments = () => {
-	commentsList.innerHTML = '';
+	commentsListElement.innerHTML = '';
 	shownCommentsAmount = 0;
 };
 
